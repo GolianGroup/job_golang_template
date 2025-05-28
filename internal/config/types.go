@@ -2,6 +2,7 @@ package config
 
 // Config holds all configuration for the application
 type Config struct {
+	Server      ServerConfig     `mapstructure:"server" validate:"required"`
 	DB          DatabaseConfig   `mapstructure:"db" validate:"required"`
 	Redis       RedisConfig      `mapstructure:"redis" validate:"required"`
 	Logger      LoggerConfig     `mapstructure:"logger" validate:"required"`
@@ -13,6 +14,13 @@ type Config struct {
 }
 
 // ServerConfig holds all server related configuration
+type ServerConfig struct {
+	Port         string `mapstructure:"port" validate:"required,number"`
+	Host         string `mapstructure:"host" validate:"required,hostname|ip"`
+	Mode         string `mapstructure:"mode" validate:"required,oneof=development production testing"`
+	ReadTimeout  int    `mapstructure:"read_timeout" validate:"required,min=1"`
+	WriteTimeout int    `mapstructure:"write_timeout" validate:"required,min=1"`
+}
 
 // DatabaseConfig holds all database related configuration
 type DatabaseConfig struct {

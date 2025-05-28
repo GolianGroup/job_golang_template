@@ -23,6 +23,15 @@ redis:
   write_time_out: 3
   idle_time_out: 5
 
+scylladb:
+  hosts:
+    - "127.0.0.1:9042"
+  keyspace: "starnet_main"
+  username: "root"
+  password: "rootpassword"
+  replication_class: "SimpleStrategy"
+  replication_factor: 3
+
 arango:
   db_name: "arangodb"
   conn_strs: "tcp://127.0.0.1:8529,http://198.51.100.1:8529"
@@ -52,3 +61,8 @@ tracer:
   insecure: "true"
   collector_url: "localhost:4317"
 
+worker_pool:
+  worker_pool_size: 3
+  tasks_config:
+    watch_cooldown_duration: 30 #‌ In Seconds
+    watch_age_limit: -72 #In hours

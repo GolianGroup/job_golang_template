@@ -8,20 +8,12 @@ A clean and structured Go project template using Fiber framework.
 .
 ├── app/ # Application bootstrapping
 │ ├── application.go # Main application setup
-│ ├── controller.go # Controller initialization
-│ ├── database.go # Databases setup
-│ ├── framework.go # Framework (Fiber) setup
-│ ├── repository.go # Repository initialization
-│ ├── router.go # Router setup
-│ └── service.go # Service initialization
+│ ├── database.go # Databases setup  
+│ ├── logger.go # Logger setup  
+│ ├── redis.go # Redis setup  
+│ └── task.go # Task management setup  
 │
 ├── cmd/ # Command line interface
-│ ├── arango_makemigration.go # Make migration for arangodb command
-│ ├── arango_migrate.go # Migrate the json files for arangodb command
-│ ├── arango_rollback.go # Rollback migration/migrations for arangodb command
-│ ├── postgres_makemigration.go # Make migration for postgres command
-│ ├── postgres_migrate.go # Migrate the migrations for postgres command
-│ ├── postgres_rollback.go # Rollback migration/migrations for postgres command
 │ ├── root.go # Root cobra command
 │ └── serve.go # Server start command
 │
@@ -31,11 +23,6 @@ A clean and structured Go project template using Fiber framework.
 │ ├── config.example.yml # Configuration file example
 │ └── config.yml # Configuration file
 │
-├── handler/ # HTTP Layer
-│ ├── controllers/ # Request handlers
-│ ├── errors/ # Handler layer errors
-│ ├── middlewares/ # HTTP middlewares
-│ └── routers/ # Route definitions
 │
 ├── internal/ # Private application code
 │ ├── config/ # Configuration
@@ -43,8 +30,7 @@ A clean and structured Go project template using Fiber framework.
 │ ├── ent/ # Ent schema files
 │ ├── mocks/ # Mock files
 │ ├── producers/ # Producers
-│ ├── repositories/ # Data access layer
-│ ├── services/ # Business logic
+│ ├── task/ # Tasks
 │ ├── utils/ # Utility functions
 │ └── helper/ # Helper functions
 │
@@ -55,7 +41,7 @@ A clean and structured Go project template using Fiber framework.
 
 ## 🔧 Technology Stack
 
-- [Fiber](https://gofiber.io/) - Web framework
+- [Ants](https://github.com/panjf2000/ants) - High-performance goroutine pool
 - [Uber FX](https://uber-go.github.io/fx/) - Dependency injection
 - [Viper](https://github.com/spf13/viper) - Configuration management
 - [Cobra](https://github.com/spf13/cobra) - CLI commands
@@ -64,28 +50,24 @@ A clean and structured Go project template using Fiber framework.
 
 This template follows clean architecture principles:
 
-1. **Domain Layer** (`internal/domain/`)
+1. **Domain Layer** (`internal/tasks/`)
 
-   - Business entities
-   - Repository interfaces
-   - Service interfaces
+   - Cronjob entities (e.g., Cronjob, Schedule, Task)
+   - Repository interfaces for cronjob-related data
+   - Service interfaces for cronjob-related operations
 
-2. **Application Layer** (`internal/services/`)
+2. **Application Layer** (`internal/tasks/`)
 
-   - Business logic implementation
-   - Use case orchestration
-   - Domain service implementation
+   - Business logic for cronjob management
+   - Use case orchestration for scheduling, execution, and monitoring
+   - Domain service implementation for cronjob workflows
 
 3. **Infrastructure Layer** (`internal/repositories/`)
 
-   - Database implementations
-   - External service integrations
-   - Repository implementations
+   - Database implementations for cronjob-related data
+   - External service integrations (e.g., monitoring tools, notification systems)
+   - Repository implementations for cronjob data persistence
 
-4. **Interface Layer** (`handler/`)
-   - HTTP handlers
-   - Middleware
-   - Route definitions
 
 ## 🚀 Getting Started
 
